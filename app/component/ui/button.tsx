@@ -29,7 +29,7 @@ export  function StyledButton(){
 
 export function MainButton(){
     return(
-        <button className="shadow-[0_4px_14px_0_rgb(0,0,0,10%)] hover:shadow-[0_6px_20px_rgba(93,93,93,23%)] px-8 py-3 bg-[#fff] text-[#696969] rounded-md font-light transition duration-200 ease-linear">
+        <button className="shadow-[0_4px_14px_0_rgb(0,0,0,10%)] hover:shadow-[0_6px_20px_rgba(93,93,93,23%)] px-8 py-3 bg-[#fff] text-[#070404] rounded-md font-bold transition duration-200 ease-linear">
         Renderer
       </button>
     )
