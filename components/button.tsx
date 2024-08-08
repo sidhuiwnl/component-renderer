@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export  function StyledButton(){
     return(
         <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6  text-white inline-block">
@@ -29,8 +31,11 @@ export  function StyledButton(){
 
 export function MainButton(){
     return(
-        <button className="shadow-[0_4px_14px_0_rgb(0,0,0,10%)] hover:shadow-[0_6px_20px_rgba(93,93,93,23%)] px-8 py-3 bg-[#fff] text-[#070404] rounded-md font-bold transition duration-200 ease-linear">
+      <Link href={'/renderer'}>
+       <button className="shadow-[0_4px_14px_0_rgb(0,0,0,10%)] hover:shadow-[0_6px_20px_rgba(93,93,93,23%)] px-8 py-3 bg-[#fff] text-[#070404] rounded-md font-bold transition duration-200 ease-linear mt-4">
         Renderer
-      </button>
+        </button>
+      </Link>
+       
     )
 }

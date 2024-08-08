@@ -1,9 +1,9 @@
 import { StyledButton,MainButton } from "../components/button";
-import { NavbarDemo } from "../components/Navbar";
+
 export default function Home() {
   return (
     <>
-    <NavbarDemo/>
+    
     <div className="h-screen w-full dark:bg-black bg-white dark:bg-grid-white/[0.1] bg-grid-black/[0.1] relative flex items-center">
       {/* Radial gradient for the container to give a faded look */}
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
@@ -14,7 +14,7 @@ export default function Home() {
           Component Before<br />
           Setting up...
         </p>
-        <p className="text-sm sm:text-xl mt-5 text-zinc-500 dark:text-zinc-300 antialiased max-w-2xl">Render your favourite component before setting up on the actual page </p>
+        <p className="text-sm sm:text-xl mt-5  text-zinc-500 dark:text-zinc-300 antialiased max-w-2xl">Render your favourite component before setting up on the actual page </p>
         <MainButton/>
       </div>
     </div>
