@@ -1,7 +1,10 @@
-export  default function Render(){
-    return(
-        <div>
-            hi
-        </div>
-    )
+import OptionsCard from "@/components/optionsCard";
+
+export default function Render() {
+  return (
+    
+      <OptionsCard/>
+    
+    
+  );
 }
