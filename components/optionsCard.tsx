@@ -22,6 +22,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { VariantType,SizeType } from "@/app/types";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { Slider } from "@/components/ui/slider"
+
 
 
 
@@ -31,7 +33,7 @@ export default function OptionsCard() {
   const [variant, setVariant] = useState<VariantType>("default");
   const [sizeOfBtn, setSizeOfBtn] = useState<SizeType>("default");
   const [loadingState, setLoadingState] = useState(false);
-  
+  const [sliderValue, setSliderValue] = useState(0);
 
 
   
@@ -113,15 +115,25 @@ export default function OptionsCard() {
                   Loading state
                 </label>
               </div>
+              <div className="space-y-4">
+              <Label>Roundness</Label>
+              <Slider 
+              value={[sliderValue]}
+              onValueChange={(value) => setSliderValue(value[0])}
+               max={20}
+                step={1} />
+              </div>
             </div>
           </form>
         </CardContent>
       </Card>
       <Card className="w-[350px] h-[400px]">
+        <CardDescription className="text-white p-5">Preview</CardDescription>
         <div className="p-5 text-center">
-        {loadingState ? <ButtonLoading/> : <DefaultButton variant={variant} text={text} sizeOfBtn={sizeOfBtn} />}
+        {loadingState ? <ButtonLoading/> : <DefaultButton variant={variant} text={text} sizeOfBtn={sizeOfBtn} sliderValue={sliderValue} />}
           
         </div>
+      
       </Card>
     </div>
   );
@@ -137,10 +149,15 @@ function ButtonLoading() {
   )
 }
 
- function DefaultButton({variant,text,sizeOfBtn} :{variant : VariantType,text : string, sizeOfBtn : SizeType}){
+ function DefaultButton({variant,text,sizeOfBtn,sliderValue} :{variant : VariantType,text : string, sizeOfBtn : SizeType, sliderValue : number}){
   return(
-      <Button variant={variant} size={sizeOfBtn}>
-            {text}
+      <Button 
+      style={{borderRadius : `${sliderValue}px`}}
+      className="rounded-full"
+      variant={variant}
+      size={sizeOfBtn}>
+      {text}
       </Button> 
   )
  }
+
