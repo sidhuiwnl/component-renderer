@@ -34,8 +34,17 @@ export default function OptionsCard() {
   const [sizeOfBtn, setSizeOfBtn] = useState<SizeType>("default");
   const [loadingState, setLoadingState] = useState(false);
   const [sliderValue, setSliderValue] = useState(0);
+  const[color,setColor] = useState("#000000");
+  const[textColor,setTextColor] = useState("#FFFFFF");
 
+  const handleColorChange = (event) => {
+    setColor(event.target.value);
+  };
 
+  const handleTextColorChange = (event) => {
+    setTextColor(event.target.value);
+  };
+  
   
   return (
     <div className=" w-full h-screen flex flex-row justify-center items-center">
@@ -123,6 +132,60 @@ export default function OptionsCard() {
                max={20}
                 step={1} />
               </div>
+              <div className="space-y-4">
+                <Label>Background Color</Label>
+                <div className="flex items-center space-x-2">
+                  <div className="relative">
+                    <Input
+                      type="color"
+                      value={color}
+                      onChange={handleColorChange}
+                      className="w-10 h-10 rounded-full border-2 border-gray-300 overflow-hidden appearance-none"
+                      style={{ padding: 0 }}
+                    />
+                    <div 
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{backgroundColor : color}}
+                    
+                    >
+                    </div>
+                  </div>
+                 
+                   <Input
+                    type="text"
+                    value={color}
+                    onChange={handleColorChange}
+                    className="flex-grow px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
+              <div className="space-y-4">
+                <Label>Text Color</Label>
+                <div className="flex items-center space-x-2">
+                  <div className="relative">
+                    <Input
+                      type="color"
+                      value={textColor}
+                      onChange={handleTextColorChange}
+                      className="w-10 h-10 rounded-full border-2 border-gray-300 overflow-hidden appearance-none"
+                      style={{ padding: 0 }}
+                    />
+                    <div 
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{backgroundColor : textColor}}
+                    
+                    >
+                    </div>
+                  </div>
+                 
+                   <Input
+                    type="text"
+                    value={textColor}
+                    onChange={handleTextColorChange}
+                    className="flex-grow px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
             </div>
           </form>
         </CardContent>
@@ -130,7 +193,7 @@ export default function OptionsCard() {
       <Card className="w-[350px] h-[400px]">
         <CardDescription className="text-white p-5">Preview</CardDescription>
         <div className="p-5 text-center">
-        {loadingState ? <ButtonLoading/> : <DefaultButton variant={variant} text={text} sizeOfBtn={sizeOfBtn} sliderValue={sliderValue} />}
+        {loadingState ? <ButtonLoading/> : <DefaultButton variant={variant} text={text} sizeOfBtn={sizeOfBtn} sliderValue={sliderValue} color={color} textColor={textColor}/>}
           
         </div>
       
@@ -149,10 +212,10 @@ function ButtonLoading() {
   )
 }
 
- function DefaultButton({variant,text,sizeOfBtn,sliderValue} :{variant : VariantType,text : string, sizeOfBtn : SizeType, sliderValue : number}){
+ function DefaultButton({variant,text,sizeOfBtn,sliderValue,color,textColor} :{variant : VariantType,text : string, sizeOfBtn : SizeType, sliderValue : number,color: string,textColor : string}){
   return(
       <Button 
-      style={{borderRadius : `${sliderValue}px`}}
+      style={{borderRadius : `${sliderValue}px`,backgroundColor : `${color}`,color : `${textColor}`}}
       className="rounded-full"
       variant={variant}
       size={sizeOfBtn}>
