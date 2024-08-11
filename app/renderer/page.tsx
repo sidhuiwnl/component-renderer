@@ -5,7 +5,7 @@ import { Card,CardHeader,CardDescription,CardContent } from "@/components/ui/car
 import {ButtonComponent,MainButton } from "@/components/RenderComponents/ButtonComponent";
 import DialogComponent from "@/components/RenderComponents/DialogComponent";
 import ComponentSelection from "@/components/RenderComponents/ComponentSelection";
-import { useComponentContext,ComponentType,ComponentProvider } from "@/lib/context/contextfile";
+import { useComponentContext,ComponentType,ComponentProvider } from "@/context/contextComponent";
 
  function RenderContent() {
   const { componentType, setComponentType } = useComponentContext();
@@ -14,11 +14,7 @@ import { useComponentContext,ComponentType,ComponentProvider } from "@/lib/conte
   const handleSelectChange = (value: ComponentType) => {
     setComponentType(value);
   };
-
   
-
- 
-
   const renderOptionComponent = () =>{
     switch(componentType){
       case "Button":

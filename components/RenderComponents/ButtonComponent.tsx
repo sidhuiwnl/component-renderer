@@ -2,7 +2,7 @@
     import { Button } from "../ui/button";
     import { Input } from "../ui/input";
     import { Label } from "../ui/label";
-import { useComponentContext } from "@/lib/context/contextfile";
+import { useComponentContext } from "@/context/contextComponent";
 
     export  function ButtonComponent(){
         const { state,setState} = useComponentContext();

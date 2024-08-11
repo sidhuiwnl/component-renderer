@@ -8,10 +8,10 @@ interface ButtonState {
     text: string;
 }
 
-// Extend this type as needed for other component states
+
 type ComponentState = {
     button: ButtonState;
-    // Add other component states here
+    
 };
 
 type ComponentContextType = {
