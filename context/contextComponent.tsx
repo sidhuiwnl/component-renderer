@@ -7,7 +7,8 @@ export type VariantType = "link" | "default" | "destructive" | "outline" | "seco
 
 interface ButtonState {
     text: string;
-    variant : VariantType
+    variant : VariantType;
+    size : string
 }
 
 
@@ -31,6 +32,7 @@ export function ComponentProvider({ children }: { children: ReactNode }): JSX.El
         button: {
             text: "Click me",
             variant : "default",
+            size : "default",
         },
     });
 

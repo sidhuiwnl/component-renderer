@@ -24,6 +24,13 @@
                 button : {...prev.button, variant : value}
             }))
         }
+
+        const handleSizeChange = (value)  =>{
+            setState((prev) => ({
+                ...prev,
+                button : {...prev.button, size : value}
+            }))
+        }
         return(
             <div className="space-y-4">
             <div className="space-y-2">
@@ -44,11 +51,25 @@
                     </SelectTrigger>
                     <SelectContent position="popper">
                         <SelectItem value="default">default</SelectItem>
-                        <SelectItem value="destructive">desctructive</SelectItem>
+                        <SelectItem value="destructive">destructive</SelectItem>
                         <SelectItem value="outline">outline</SelectItem>
                         <SelectItem value="secondary">secondary</SelectItem>
                         <SelectItem value="ghost">ghost</SelectItem>
                         <SelectItem value="link">link</SelectItem>
+                    </SelectContent>
+                </Select>
+             </div>
+             <div className="space-y-2">
+             <Label htmlFor="btn-text" className="text-sm font-medium">Size</Label>
+             <Select onValueChange={handleSizeChange}>
+                    <SelectTrigger id="variant">
+                        <SelectValue placeholder="default" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                        <SelectItem value="default">default</SelectItem>
+                        <SelectItem value="sm">sm</SelectItem>
+                        <SelectItem value="lg">lg</SelectItem>
+                       
                     </SelectContent>
                 </Select>
              </div>
@@ -60,6 +81,6 @@
     export function MainButton(){
         const  {state} = useComponentContext();
         return(
-            <Button variant={state.button.variant}>{state.button.text}</Button>
+            <Button variant={state.button.variant} size={state.button.size}>{state.button.text}</Button>
         )
     }
