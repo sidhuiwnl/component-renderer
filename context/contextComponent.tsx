@@ -4,11 +4,12 @@ import React, { createContext, useContext, useState, ReactNode, Dispatch, SetSta
 
 export type ComponentType = 'Button' | 'Dialog' | 'Alert' | 'Accordian' | 'Command';
 export type VariantType = "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined
+export type SizeType = "default" | "sm" | "lg" | null | undefined
 
 interface ButtonState {
     text: string;
     variant : VariantType;
-    size : string
+    size : SizeType
 }
 
 
