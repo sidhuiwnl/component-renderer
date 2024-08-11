@@ -2,7 +2,11 @@
     import { Button } from "../ui/button";
     import { Input } from "../ui/input";
     import { Label } from "../ui/label";
-import { useComponentContext } from "@/context/contextComponent";
+    import { Select,SelectTrigger,SelectValue,SelectContent,SelectItem } from "../ui/select";
+    import { useComponentContext } from "@/context/contextComponent";
+    import { VariantType } from "@/context/contextComponent";
+    
+
 
     export  function ButtonComponent(){
         const { state,setState} = useComponentContext();
@@ -11,6 +15,13 @@ import { useComponentContext } from "@/context/contextComponent";
             setState(prev => ({
                 ...prev,
                 button: { ...prev.button, text: e.target.value }
+            }))
+        }
+
+        const handleVariantChange = (value)  =>{
+            setState((prev) => ({
+                ...prev,
+                button : {...prev.button, variant : value}
             }))
         }
         return(
@@ -23,8 +34,24 @@ import { useComponentContext } from "@/context/contextComponent";
                 onChange={handleTextChange}
                 className="w-full"
             />
+           
             </div>
-            
+             <div className="space-y-2">
+             <Label htmlFor="btn-text" className="text-sm font-medium">Variant</Label>
+             <Select onValueChange={handleVariantChange}>
+                    <SelectTrigger id="variant">
+                        <SelectValue placeholder="default" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                        <SelectItem value="default">default</SelectItem>
+                        <SelectItem value="destructive">desctructive</SelectItem>
+                        <SelectItem value="outline">outline</SelectItem>
+                        <SelectItem value="secondary">secondary</SelectItem>
+                        <SelectItem value="ghost">ghost</SelectItem>
+                        <SelectItem value="link">link</SelectItem>
+                    </SelectContent>
+                </Select>
+             </div>
         </div>
         )
     }
@@ -33,6 +60,6 @@ import { useComponentContext } from "@/context/contextComponent";
     export function MainButton(){
         const  {state} = useComponentContext();
         return(
-            <Button>{state.button.text}</Button>
+            <Button variant={state.button.variant}>{state.button.text}</Button>
         )
     }

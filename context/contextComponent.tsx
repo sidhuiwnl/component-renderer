@@ -3,9 +3,11 @@
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from "react";
 
 export type ComponentType = 'Button' | 'Dialog' | 'Alert' | 'Accordian' | 'Command';
+export type VariantType = "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined
 
 interface ButtonState {
     text: string;
+    variant : VariantType
 }
 
 
@@ -28,6 +30,7 @@ export function ComponentProvider({ children }: { children: ReactNode }): JSX.El
     const [state, setState] = useState<ComponentState>({
         button: {
             text: "Click me",
+            variant : "default",
         },
     });
 
