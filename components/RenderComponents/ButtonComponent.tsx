@@ -47,18 +47,18 @@ import { Slider } from "../ui/slider";
             }))
         }
 
-        const handleColorChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
-            setState((prev) =>({
-                ...prev,
-                button : {...prev.button,bgColor : e.target.value }
-            }))
-        }
-        const handleTextColorChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
-            setState((prev) =>({
-                ...prev,
-                button : {...prev.button,textColor : e.target.value }
-            }))
-        }
+        // const handleColorChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
+        //     setState((prev) =>({
+        //         ...prev,
+        //         button : {...prev.button,bgColor : e.target.value }
+        //     }))
+        // }
+        // const handleTextColorChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
+        //     setState((prev) =>({
+        //         ...prev,
+        //         button : {...prev.button,textColor : e.target.value }
+        //     }))
+        // }
         return(
             <div className="space-y-4">
             <div className="space-y-2">
@@ -217,21 +217,39 @@ import { Slider } from "../ui/slider";
 
      export function ButtonCode(){
         const  {state} = useComponentContext();
-         return(
-            `import { Button } from "@/components/ui/button"
-
-  export function ButtonDemo() {
-    return (
-      <Button
-        variant="${state.button.variant}"
-         size="${state.button.size}"
-        style={{ borderRadius: "${state.button.roundness}px" }
-        
-      >
-        
-        ${state.button.text}
-      </Button>
-    )
-  }`
-         )
+        if(state.button.loading){
+            return(
+                `import { ReloadIcon } from "@radix-ui/react-icons"
+ 
+import { Button } from "@/components/ui/button"
+ 
+export function ButtonLoading() {
+  return (
+    <Button disabled>
+      <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+      Please wait
+    </Button>
+  )
+}`
+            )
+        }else{
+            return(
+                `import { Button } from "@/components/ui/button"
+    
+      export function ButtonDemo() {
+        return (
+          <Button
+            variant="${state.button.variant}"
+             size="${state.button.size}"
+            style={{ borderRadius: "${state.button.roundness}px" }
+            
+          >
+            
+            ${state.button.text}
+          </Button>
+        )
+      }`
+             )
+        }
+         
      }
