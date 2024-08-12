@@ -2,10 +2,11 @@
     import { Button } from "../ui/button";
     import { Input } from "../ui/input";
     import { Label } from "../ui/label";
+    import { Checkbox } from "../ui/checkbox";
     import { Select,SelectTrigger,SelectValue,SelectContent,SelectItem } from "../ui/select";
     import { useComponentContext } from "@/context/contextComponent";
     import { VariantType } from "@/context/contextComponent";
-    
+    import { ReloadIcon } from "@radix-ui/react-icons"
 
 
     export  function ButtonComponent(){
@@ -29,6 +30,12 @@
             setState((prev) => ({
                 ...prev,
                 button : {...prev.button, size : value}
+            }))
+        }
+        const handleLoadingState = (checked : boolean)  =>{
+            setState((prev) => ({
+                ...prev,
+                button : {...prev.button, loading : checked}
             }))
         }
         return(
@@ -73,6 +80,21 @@
                     </SelectContent>
                 </Select>
              </div>
+             <div className="space-y-2">
+             <Label htmlFor="btn-text" className="text-sm font-medium">Loading State</Label>
+                <div className="flex items-center space-x-2">
+                    <Checkbox id="loading"
+                    checked = {state.button.loading}
+                    onCheckedChange={handleLoadingState}
+                    />
+                    <Label
+                    htmlFor="loading"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Loading State
+                    </Label>
+                </div>
+             </div>
         </div>
         )
     }
@@ -80,7 +102,19 @@
 
     export function MainButton(){
         const  {state} = useComponentContext();
-        return(
-            <Button variant={state.button.variant} size={state.button.size}>{state.button.text}</Button>
-        )
+         
+        if(state.button.loading){
+            return(
+                <Button disabled>
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                Please wait
+              </Button>
+            )
+        }else{
+            return(
+            
+                <Button variant={state.button.variant} size={state.button.size}>{state.button.text}</Button>
+            )
+        }
+        
     }

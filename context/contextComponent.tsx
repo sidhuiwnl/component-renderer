@@ -9,7 +9,8 @@ export type SizeType = "default" | "sm" | "lg" | null | undefined
 interface ButtonState {
     text: string;
     variant : VariantType;
-    size : SizeType
+    size : SizeType;
+    loading : boolean
 }
 
 
@@ -34,6 +35,7 @@ export function ComponentProvider({ children }: { children: ReactNode }): JSX.El
             text: "Click me",
             variant : "default",
             size : "default",
+            loading : false
         },
     });
 
