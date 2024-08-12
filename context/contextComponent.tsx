@@ -10,7 +10,10 @@ interface ButtonState {
     text: string;
     variant : VariantType;
     size : SizeType;
-    loading : boolean
+    loading : boolean;
+    roundness : number;
+    bgColor : string;
+    textColor : string;
 }
 
 
@@ -35,7 +38,10 @@ export function ComponentProvider({ children }: { children: ReactNode }): JSX.El
             text: "Click me",
             variant : "default",
             size : "default",
-            loading : false
+            loading : false,
+            roundness : 0,
+            bgColor : "#FFFFFF",
+            textColor : "#000000"
         },
     });
 

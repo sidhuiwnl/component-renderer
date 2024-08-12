@@ -4,9 +4,10 @@
     import { Label } from "../ui/label";
     import { Checkbox } from "../ui/checkbox";
     import { Select,SelectTrigger,SelectValue,SelectContent,SelectItem } from "../ui/select";
-    import { useComponentContext } from "@/context/contextComponent";
+    import { SizeType, useComponentContext } from "@/context/contextComponent";
     import { VariantType } from "@/context/contextComponent";
     import { ReloadIcon } from "@radix-ui/react-icons"
+import { Slider } from "../ui/slider";
 
 
     export  function ButtonComponent(){
@@ -19,23 +20,43 @@
             }))
         }
 
-        const handleVariantChange = (value)  =>{
+        const handleVariantChange = (value : string )   =>{
             setState((prev) => ({
                 ...prev,
-                button : {...prev.button, variant : value}
+                button : {...prev.button, variant : value as VariantType}
             }))
         }
 
-        const handleSizeChange = (value)  =>{
+        const handleSizeChange = (value : string)  =>{
             setState((prev) => ({
                 ...prev,
-                button : {...prev.button, size : value}
+                button : {...prev.button, size : value as SizeType}
             }))
         }
         const handleLoadingState = (checked : boolean)  =>{
             setState((prev) => ({
                 ...prev,
                 button : {...prev.button, loading : checked}
+            }))
+        }
+
+        const roundnessChange = (value  : number[]) =>{
+            setState((prev) =>({
+                ...prev,
+                button  : {...prev.button,roundness : value[0]}
+            }))
+        }
+
+        const handleColorChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
+            setState((prev) =>({
+                ...prev,
+                button : {...prev.button,bgColor : e.target.value }
+            }))
+        }
+        const handleTextColorChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
+            setState((prev) =>({
+                ...prev,
+                button : {...prev.button,textColor : e.target.value }
             }))
         }
         return(
@@ -67,7 +88,7 @@
                 </Select>
              </div>
              <div className="space-y-2">
-             <Label htmlFor="btn-text" className="text-sm font-medium">Size</Label>
+             <Label htmlFor="size" className="text-sm font-medium">Size</Label>
              <Select onValueChange={handleSizeChange}>
                     <SelectTrigger id="variant">
                         <SelectValue placeholder="default" />
@@ -81,7 +102,7 @@
                 </Select>
              </div>
              <div className="space-y-2">
-             <Label htmlFor="btn-text" className="text-sm font-medium">Loading State</Label>
+             <Label htmlFor="Loading-state" className="text-sm font-medium">Loading State</Label>
                 <div className="flex items-center space-x-2">
                     <Checkbox id="loading"
                     checked = {state.button.loading}
@@ -93,6 +114,67 @@
                     >
                         Loading State
                     </Label>
+                </div>
+
+             </div>
+             <div className="space-y-2">
+                <Label className="text-sm font-medium">Roundness</Label>
+                <Slider 
+                    
+                    defaultValue={[0]}
+                    max={20}
+                    step={1}
+                    value={[state.button.roundness]}
+                    onValueChange={(value) => roundnessChange(value)}
+                />
+             </div>
+             <div className="space-y-2">
+                <Label className="text-sm font-medium">Text Color</Label>
+                <div className="flex items-center space-x-2">
+                    <div className="relative">
+                        <Input
+                        type="color"
+                        value={state.button.textColor}
+                        onChange={handleTextColorChange}
+                        className="w-10 h-10 rounded-full border-2 border-gray-300 overflow-hidden appearance-none"
+                        />
+                         <div 
+                            className="absolute inset-0 rounded-full pointer-events-none"
+                            style={{ backgroundColor: state.button.textColor }}
+                        ></div>
+                       
+                    </div>
+                    <Input
+                        type="text"
+                        value={state.button.textColor}
+                        onChange={handleTextColorChange}
+                        className="flex-grow px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                </div>
+                
+             </div>
+             <div className="space-y-2">
+                <Label className="text-sm font-medium">Background Color</Label>
+                <div className="flex items-center space-x-2">
+                    <div className="relative">
+                        <Input
+                        type="color"
+                        value={state.button.bgColor}
+                        onChange={handleColorChange}
+                        className="w-10 h-10 rounded-full border-2 border-gray-300 overflow-hidden appearance-none"
+                        />
+                         <div 
+                            className="absolute inset-0 rounded-full pointer-events-none"
+                            style={{ backgroundColor: state.button.bgColor }}
+                        ></div>
+                       
+                    </div>
+                    <Input
+                        type="text"
+                        value={state.button.bgColor}
+                        onChange={handleColorChange}
+                        className="flex-grow px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
                 </div>
              </div>
         </div>
@@ -113,7 +195,12 @@
         }else{
             return(
             
-                <Button variant={state.button.variant} size={state.button.size}>{state.button.text}</Button>
+                <Button 
+                style={{borderRadius : `${state.button.roundness}px`,backgroundColor : `${state.button.bgColor}`, color : `${state.button.textColor}`}}
+                variant={state.button.variant} 
+                size={state.button.size}>
+                    {state.button.text}
+                    </Button>
             )
         }
         
