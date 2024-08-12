@@ -1,4 +1,4 @@
-    import { useState } from "react";
+    
     import { Button } from "../ui/button";
     import { Input } from "../ui/input";
     import { Label } from "../ui/label";
@@ -128,7 +128,7 @@ import { Slider } from "../ui/slider";
                     onValueChange={(value) => roundnessChange(value)}
                 />
              </div>
-             <div className="space-y-2">
+             {/* <div className="space-y-2">
                 <Label className="text-sm font-medium">Text Color</Label>
                 <div className="flex items-center space-x-2">
                     <div className="relative">
@@ -176,14 +176,17 @@ import { Slider } from "../ui/slider";
                         className="flex-grow px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
-             </div>
+             </div> */}
         </div>
         )
     }
     
 
+    
+
     export function MainButton(){
         const  {state} = useComponentContext();
+        
          
         if(state.button.loading){
             return(
@@ -196,11 +199,16 @@ import { Slider } from "../ui/slider";
             return(
             
                 <Button 
-                style={{borderRadius : `${state.button.roundness}px`,backgroundColor : `${state.button.bgColor}`, color : `${state.button.textColor}`}}
+                
                 variant={state.button.variant} 
-                size={state.button.size}>
+                size={state.button.size}
+                style={{
+                    borderRadius : `${state.button.roundness}px`,
+                   
+                }}
+                >
                     {state.button.text}
-                    </Button>
+                </Button>
             )
         }
         
