@@ -213,3 +213,25 @@ import { Slider } from "../ui/slider";
         }
         
     }
+
+
+     export function ButtonCode(){
+        const  {state} = useComponentContext();
+         return(
+            `import { Button } from "@/components/ui/button"
+
+  export function ButtonDemo() {
+    return (
+      <Button
+        variant="${state.button.variant}"
+         size="${state.button.size}"
+        style={{ borderRadius: "${state.button.roundness}px" }
+        
+      >
+        
+        ${state.button.text}
+      </Button>
+    )
+  }`
+         )
+     }

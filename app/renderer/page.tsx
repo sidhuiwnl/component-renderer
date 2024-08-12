@@ -2,7 +2,7 @@
 
 import { Card,CardHeader,CardDescription,CardContent } from "@/components/ui/card";
 
-import {ButtonComponent,MainButton } from "@/components/RenderComponents/ButtonComponent";
+import {ButtonComponent,MainButton,ButtonCode } from "@/components/RenderComponents/ButtonComponent";
 import DialogComponent from "@/components/RenderComponents/DialogComponent";
 import ComponentSelection from "@/components/RenderComponents/ComponentSelection";
 import { useComponentContext,ComponentType,ComponentProvider } from "@/context/contextComponent";
@@ -37,6 +37,17 @@ import { useComponentContext,ComponentType,ComponentProvider } from "@/context/c
         return null
     }
   }
+
+  const renderCode = () =>{
+    switch(componentType){
+      case "Button" :
+        return <ButtonCode/>;
+      case "Dialog":
+        return null
+      default :
+        return null
+    }
+  }
   
   return (
     <div className="w-full min-h-screen flex flex-col items-center p-5">
@@ -60,7 +71,16 @@ import { useComponentContext,ComponentType,ComponentProvider } from "@/context/c
           </CardContent>
         </Card>
       </div>
-      
+      <Card className="w-full min-h-[400px] max-w-[1020px]">
+        <CardDescription className="dark:text-white p-5 text-2xl">Code</CardDescription>
+        <div className="relative p-5">
+          <pre className="dark:bg-zinc-900 bg-gray-100 p-6 rounded-md overflow-x-auto">
+            <code className="text-sm">
+              {renderCode()}
+            </code>
+          </pre>
+        </div>
+      </Card>
     </div>
   );
 }
