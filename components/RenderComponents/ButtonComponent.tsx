@@ -221,38 +221,37 @@ export function MainButton() {
 
 export const MainCode = (buttonState: ButtonState) => {
   const loadingCode = `
-        import { ReloadIcon } from "@radix-ui/react-icons"
+import { ReloadIcon } from "@radix-ui/react-icons"
  
-        import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
  
-        export function ButtonLoading() {
-            return (
-                <Button disabled>
-                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                     Please wait
-                </Button>
-            )
-        }
-        `;
+    export function ButtonLoading() {
+        return (
+            <Button disabled>
+            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                 Please wait
+            </Button>
+        )
+    }
+`;
 
   const MainButtonCode = `
-    import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
     
-    export function ButtonDemo() {
-        return (
-          <Button
+export function ButtonDemo() {
+    return (
+        <Button
             variant="${buttonState.variant}"
-             size="${buttonState.size}"
+            size="${buttonState.size}"
             style={{ borderRadius: "${buttonState.roundness}px" }
-            
-          >
-            
-            ${buttonState.text}
-          </Button>
-        )
-      }
+        >
+        ${buttonState.text}
+        </Button>
+    )
+}
 
-        `;
+`;
+
   if (buttonState.loading) {
     return loadingCode;
   } else {

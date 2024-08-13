@@ -16,10 +16,17 @@ export interface ButtonState {
     textColor : string;
 }
 
+export interface DialogState {
+    triggerText  :string;
+    triggerTitle : string;
+    triggerDescription : string;
+    triggerContent : string;
+}
+
 
 type ComponentState = {
     button: ButtonState;
-    
+    dialog : DialogState;
 };
 
 type ComponentContextType = {
@@ -43,6 +50,12 @@ export function ComponentProvider({ children }: { children: ReactNode }): JSX.El
             bgColor : "#FFFFFF",
             textColor : "#000000"
         },
+        dialog  :{
+            triggerText : "Open Dialog",
+            triggerTitle : "Are you absolutely sure?",
+            triggerDescription : " This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+            triggerContent : "Add your content here"
+        }
     });
 
     return (

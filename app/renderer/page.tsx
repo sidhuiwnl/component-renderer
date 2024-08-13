@@ -3,8 +3,8 @@
 import { Card,CardHeader,CardDescription,CardContent } from "@/components/ui/card";
 
 
-import {ButtonComponent,MainButton, MainCode } from "@/components/RenderComponents/ButtonComponent";
-import DialogComponent from "@/components/RenderComponents/DialogComponent";
+import { ButtonComponent,MainButton, MainCode } from "@/components/RenderComponents/ButtonComponent";
+import { DialogCode, DialogComponent, DialogRenderComponent } from "@/components/RenderComponents/DialogComponent";
 import ComponentSelection from "@/components/RenderComponents/ComponentSelection";
 import { useComponentContext,ComponentType,ComponentProvider} from "@/context/contextComponent";
 import { Button } from "@/components/ui/button";
@@ -50,7 +50,7 @@ function copyToClipBoard(codeToCopy : string){
       case "Button" :
         return <MainButton/>;
       case "Dialog":
-        return null
+        return <DialogRenderComponent/>
       default :
         return null
     }
@@ -63,7 +63,8 @@ function copyToClipBoard(codeToCopy : string){
         
         return code ;
       case "Dialog":
-        return ""
+        const code1 = DialogCode(state.dialog)
+        return code1
       default :
         return ""
     }
