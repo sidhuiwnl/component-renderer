@@ -27,7 +27,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NavbarDemo/>
-        {children}
+        <main className="flex-grow pt-24">{children}</main>
         </ThemeProvider>
         <Toaster/>
         </body>

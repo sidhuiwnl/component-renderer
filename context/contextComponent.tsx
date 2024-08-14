@@ -23,10 +23,15 @@ export interface DialogState {
     triggerContent : string;
 }
 
+export interface AccordianState{
+    collapsible : boolean;
+}
+
 
 type ComponentState = {
     button: ButtonState;
     dialog : DialogState;
+    accordian : AccordianState;
 };
 
 type ComponentContextType = {
@@ -55,6 +60,9 @@ export function ComponentProvider({ children }: { children: ReactNode }): JSX.El
             triggerTitle : "Are you absolutely sure?",
             triggerDescription : " This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
             triggerContent : "Add your content here"
+        },
+        accordian : {
+            collapsible : false,
         }
     });
 
