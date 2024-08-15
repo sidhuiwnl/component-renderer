@@ -4,7 +4,6 @@ import { Checkbox } from "../ui/checkbox"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Textarea } from "../ui/textarea"
-import { v4 as uuid } from 'uuid';
 
 import {
     Accordion,

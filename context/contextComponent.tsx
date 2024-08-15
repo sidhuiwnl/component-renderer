@@ -1,5 +1,5 @@
 
-import { v4 as uuid } from 'uuid';
+
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from "react";
 
 export type ComponentType = 'Button' | 'Dialog' | 'Alert' | 'Accordian' | 'Command';
