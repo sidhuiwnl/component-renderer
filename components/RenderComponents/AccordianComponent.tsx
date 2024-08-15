@@ -149,7 +149,7 @@ export function PreviewAccordian(){
          collapsible={state.accordian.collapsible} 
          className="w-full">
         {state.accordian.accordians.map((item) =>(
-            <AccordionItem value={item.id.toString()}>
+            <AccordionItem key={item.id} value={item.id.toString()}>
                 <AccordionTrigger>{item.trigger}</AccordionTrigger>
                 <AccordionContent>{item.content}</AccordionContent>
             </AccordionItem>
@@ -174,7 +174,7 @@ export function AccordianDemo(){
     return(
         <Accordina type="single" collapsible=${AccordianState.collapsible} className="w-full">
             ${AccordianState.accordians.map((item) =>(
-                `<AccordianItem value="${item.id}">
+                `<AccordianItem  value="${item.id}">
                     <AccordianTrigger>${item.trigger}</AccordianTrigger>
                     <AccordianContent>
                         ${item.content}
