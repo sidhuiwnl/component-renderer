@@ -129,7 +129,7 @@ export function Accordian(){
             <div className="space-y-2">
                 <Label className="text-sm font-medium">Accordian Items</Label>
                 {state.accordian.accordians.map((item) =>(
-                    <AccordianTriggerBox id={item.id} trigger={item.trigger} content={item.content} onRemove={() => removeitem(item.id)}/>
+                    <AccordianTriggerBox key={item.id} id={item.id} trigger={item.trigger} content={item.content} onRemove={() => removeitem(item.id)}/>
                 ))}
             </div>
             <div>
