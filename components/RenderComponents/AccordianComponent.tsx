@@ -19,7 +19,7 @@ interface AccordianTriggerBoxProps {
     onRemove: () => void;
     trigger : string;
     content : string;
-    id : string;
+    id : number;
 }
 
 function AccordianTriggerBox({onRemove,trigger,content,id} : AccordianTriggerBoxProps){
@@ -45,11 +45,11 @@ function AccordianTriggerBox({onRemove,trigger,content,id} : AccordianTriggerBox
                 value={trigger}
                 name = "trigger"
                 onChange={inputChange}
-                placeholder="Trigger"
+                placeholder={`Trigger ${id}`}
                 />
                 <Textarea 
                 value={content}
-                placeholder="Content"
+                placeholder={`Content ${id}`}
                 name="Content"
                 onChange={inputChange}
                 />
@@ -67,23 +67,28 @@ export function Accordian(){
    
     
     const addItem = () => {
-        setState((prev) => ({
-            ...prev,
-            accordian: {
-                ...prev.accordian,
-                accordians: [
-                    ...prev.accordian.accordians,
-                    {
-                        id: uuid(),
-                        trigger: "",
-                        content: ""
-                    }
-                ]
-            }
-        }));
+        setState((prev) => {
+            const newId = prev.accordian.accordians.length > 0 
+                ? Math.max(...prev.accordian.accordians.map(item => item.id)) + 1 
+                : 1;
+            return {
+                ...prev,
+                accordian: {
+                    ...prev.accordian,
+                    accordians: [
+                        ...prev.accordian.accordians,
+                        {
+                            id: newId,
+                            trigger: "",
+                            content: ""
+                        }
+                    ]
+                }
+            };
+        });
     }
 
-    const removeitem = (id : string) => {
+    const removeitem = (id : number) => {
         setState((prev) =>({
             ...prev,
             accordian : {
@@ -145,7 +150,7 @@ export function PreviewAccordian(){
          collapsible={state.accordian.collapsible} 
          className="w-full">
         {state.accordian.accordians.map((item) =>(
-            <AccordionItem value={item.id}>
+            <AccordionItem value={item.id.toString()}>
                 <AccordionTrigger>{item.trigger}</AccordionTrigger>
                 <AccordionContent>{item.content}</AccordionContent>
             </AccordionItem>
@@ -170,13 +175,13 @@ export function AccordianDemo(){
     return(
         <Accordina type="single" collapsible=${AccordianState.collapsible} className="w-full">
             ${AccordianState.accordians.map((item) =>(
-                `<AccordianItem value=${item.id}>
+                `<AccordianItem value="${item.id}">
                     <AccordianTrigger>${item.trigger}</AccordianTrigger>
                     <AccordianContent>
                         ${item.content}
                     </AccordianContent>
                 </AccordianItem>`
-            ))}
+            )).join('')}
         </Accordian>
     )
 }

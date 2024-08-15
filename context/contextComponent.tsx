@@ -24,7 +24,7 @@ export interface DialogState {
 }
 
 interface AccordianItem{
-    id : string,
+    id : number,
     trigger : string,
     content : string,
 }
@@ -71,15 +71,15 @@ export function ComponentProvider({ children }: { children: ReactNode }): JSX.El
         accordian : {
             collapsible : false,
             accordians : [{
-                id : uuid(),
+                id : 1,
                 trigger :"Is it accessible?",
                 content : "Yes. It adheres to the WAI-ARIA design pattern."
             },{
-                id :  uuid(),
+                id :  2,
                 trigger :"Is it styled?",
                 content : "Yes. It comes with default styles that matches the other components' aesthetic."
             },{
-                id :  uuid(),
+                id :  3,
                 trigger :"Is it animated?",
                 content : "Yes. It's animated by default, but you can disable it if you prefer."
             }]
