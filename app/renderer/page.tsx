@@ -5,7 +5,7 @@ import { Card,CardHeader,CardDescription,CardContent } from "@/components/ui/car
 
 import { ButtonComponent,MainButton, MainCode } from "@/components/RenderComponents/ButtonComponent";
 import { DialogCode, DialogComponent, DialogRenderComponent } from "@/components/RenderComponents/DialogComponent";
-import { Accordian,PreviewAccordian } from "@/components/RenderComponents/AccordianComponent";
+import { Accordian,AccordianCode,PreviewAccordian } from "@/components/RenderComponents/AccordianComponent";
 import ComponentSelection from "@/components/RenderComponents/ComponentSelection";
 import { useComponentContext,ComponentType,ComponentProvider} from "@/context/contextComponent";
 import { Button } from "@/components/ui/button";
@@ -67,8 +67,11 @@ function copyToClipBoard(codeToCopy : string){
         
         return code ;
       case "Dialog":
-        const code1 = DialogCode(state.dialog)
+        const code1 = DialogCode(state.dialog);
         return code1
+      case "Accordian":
+        const code2 = AccordianCode(state.accordian);
+        return code2
       default :
         return ""
     }
@@ -78,7 +81,7 @@ function copyToClipBoard(codeToCopy : string){
 
   
   return (
-    <div className="w-full  flex justify-center items-start p-5">
+    <div className="w-full  flex justify-center items-start p-10 mt-20">
     <div className="max-w-[1220px] w-full flex flex-col items-center">
       <div className="w-full flex flex-col md:flex-row justify-center items-stretch mb-5">
         <Card className="w-full md:max-w-[600px] min-h-[700px] flex-grow mb-5 md:mb-0 md:mr-5">

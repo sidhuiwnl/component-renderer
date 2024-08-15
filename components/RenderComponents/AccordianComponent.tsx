@@ -1,28 +1,58 @@
-import { useState } from "react"
+
 import { Button } from "../ui/button"
 import { Checkbox } from "../ui/checkbox"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Textarea } from "../ui/textarea"
+import { v4 as uuid } from 'uuid';
+
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { useComponentContext } from "@/context/contextComponent"
+import { AccordianState, useComponentContext } from "@/context/contextComponent"
 
 
 interface AccordianTriggerBoxProps {
     onRemove: () => void;
+    trigger : string;
+    content : string;
+    id : string;
 }
 
-function AccordianTriggerBox({onRemove} : AccordianTriggerBoxProps){
+function AccordianTriggerBox({onRemove,trigger,content,id} : AccordianTriggerBoxProps){
+    const { state , setState} = useComponentContext();
+
+    function inputChange(e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
+        const { name , value } = e.target;
+            setState((prev) =>({
+                ...prev,
+                accordian :{
+                    ...prev.accordian,
+                    accordians  : prev.accordian.accordians.map((item) =>
+                        item.id === id  ? {...item,[name] : value} : item
+                    )
+                }
+            }))
+    }
+   
     return(
         <div className="border-2 p-1 rounded-lg">
             <div className="space-y-3 m-3">
-                <Input/>
-                <Textarea/>
+                <Input 
+                value={trigger}
+                name = "trigger"
+                onChange={inputChange}
+                placeholder="Trigger"
+                />
+                <Textarea 
+                value={content}
+                placeholder="Content"
+                name="Content"
+                onChange={inputChange}
+                />
                 <Button variant="destructive" onClick={onRemove}>Remove Item</Button>
             </div>
         </div>
@@ -34,14 +64,35 @@ function AccordianTriggerBox({onRemove} : AccordianTriggerBoxProps){
 export function Accordian(){
     const { state , setState} = useComponentContext();
 
-    const[accordianItem,setAccordianItem] = useState([{id : 1}]);
-
-    const addItem = () =>{
-        setAccordianItem([...accordianItem,{id  :Date.now()}])
+   
+    
+    const addItem = () => {
+        setState((prev) => ({
+            ...prev,
+            accordian: {
+                ...prev.accordian,
+                accordians: [
+                    ...prev.accordian.accordians,
+                    {
+                        id: uuid(),
+                        trigger: "",
+                        content: ""
+                    }
+                ]
+            }
+        }));
     }
 
-    const removeItem = (id : number)=>{
-        setAccordianItem(accordianItem.filter(accId => accId.id != id))
+    const removeitem = (id : string) => {
+        setState((prev) =>({
+            ...prev,
+            accordian : {
+                ...prev.accordian,
+                accordians  : [
+                    ...prev.accordian.accordians.filter(item => item.id != id)
+                ]
+            }
+        }))
     }
 
     const handleCollapsibleChange = (checked : boolean) =>{
@@ -51,6 +102,7 @@ export function Accordian(){
         }))
     }
 
+   
     return(
         <div className="space-y-3">
             <div className="space-y-2">
@@ -72,8 +124,8 @@ export function Accordian(){
             </div>
             <div className="space-y-2">
                 <Label className="text-sm font-medium">Accordian Items</Label>
-                {accordianItem.map((item) =>(
-                    <AccordianTriggerBox key={item.id} onRemove={() => removeItem(item.id)}/>
+                {state.accordian.accordians.map((item) =>(
+                    <AccordianTriggerBox id={item.id} trigger={item.trigger} content={item.content} onRemove={() => removeitem(item.id)}/>
                 ))}
             </div>
             <div>
@@ -92,28 +144,43 @@ export function PreviewAccordian(){
          type="single" 
          collapsible={state.accordian.collapsible} 
          className="w-full">
-
-        <AccordionItem value="item-1">
-          <AccordionTrigger>Is it accessible?</AccordionTrigger>
-          <AccordionContent>
-            Yes. It adheres to the WAI-ARIA design pattern.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger>Is it styled?</AccordionTrigger>
-          <AccordionContent>
-            Yes. It comes with default styles that matches the other
-            components&apos; aesthetic.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-3">
-          <AccordionTrigger>Is it animated?</AccordionTrigger>
-          <AccordionContent>
-            Yes. It's animated by default, but you can disable it if you prefer.
-          </AccordionContent>
-        </AccordionItem>
+        {state.accordian.accordians.map((item) =>(
+            <AccordionItem value={item.id}>
+                <AccordionTrigger>{item.trigger}</AccordionTrigger>
+                <AccordionContent>{item.content}</AccordionContent>
+            </AccordionItem>
+        ))}
       </Accordion>
         </>
        
     )
+}
+
+export function AccordianCode(AccordianState : AccordianState){
+    const AccCode = 
+    `
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
+
+export function AccordianDemo(){
+    return(
+        <Accordina type="single" collapsible=${AccordianState.collapsible} className="w-full">
+            ${AccordianState.accordians.map((item) =>(
+                `<AccordianItem value=${item.id}>
+                    <AccordianTrigger>${item.trigger}</AccordianTrigger>
+                    <AccordianContent>
+                        ${item.content}
+                    </AccordianContent>
+                </AccordianItem>`
+            ))}
+        </Accordian>
+    )
+}
+    `
+
+    return AccCode
 }

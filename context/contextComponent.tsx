@@ -1,5 +1,5 @@
 
-
+import { v4 as uuid } from 'uuid';
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from "react";
 
 export type ComponentType = 'Button' | 'Dialog' | 'Alert' | 'Accordian' | 'Command';
@@ -23,8 +23,15 @@ export interface DialogState {
     triggerContent : string;
 }
 
+interface AccordianItem{
+    id : string,
+    trigger : string,
+    content : string,
+}
+
 export interface AccordianState{
     collapsible : boolean;
+    accordians : AccordianItem[]
 }
 
 
@@ -63,6 +70,19 @@ export function ComponentProvider({ children }: { children: ReactNode }): JSX.El
         },
         accordian : {
             collapsible : false,
+            accordians : [{
+                id : uuid(),
+                trigger :"Is it accessible?",
+                content : "Yes. It adheres to the WAI-ARIA design pattern."
+            },{
+                id :  uuid(),
+                trigger :"Is it styled?",
+                content : "Yes. It comes with default styles that matches the other components' aesthetic."
+            },{
+                id :  uuid(),
+                trigger :"Is it animated?",
+                content : "Yes. It's animated by default, but you can disable it if you prefer."
+            }]
         }
     });
 
